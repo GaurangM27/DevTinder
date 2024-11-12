@@ -53,13 +53,25 @@ app.delete("/user", async (req, res) => {
   }
 });
 
-app.patch("/user", async (req, res) => {
-  const email = req.body.email;
+app.patch("/user/:userId", async (req, res) => {
+  const user = req.params?.userId;
+  const data = req.body;
+
   try {
-    await User.findOneAndUpdate({ emailId: email }, { password: "meisGM2712" });
+    const ALLOWED_UPDATES = ["photoUrl", "about", "gender", "age", "skills"];
+    const isValidUpdate = Object.keys(data).every((update) =>
+      ALLOWED_UPDATES.includes(update)
+    );
+    if (!isValidUpdate) {
+      throw new Error("Invalid update");
+    }
+    if (data?.skills.length > 10) {
+      throw new Error("Skills cannot exceed 10");
+    }
+    await User.findByIdAndUpdate({ _id: user }, data, {});
     res.send("User updated successfully");
   } catch (error) {
-    res.status(404).send("User not found");
+    res.status(400).send("Update Unsuccessful: " + error.message);
   }
 });
 
