@@ -80,7 +80,7 @@ userModel.methods.getJWT = async function () {
 
 userModel.methods.validatePassword = async function (passwordInputByUser) {
   const user = this;
-  const passwordHash = this.password;
+  const passwordHash = user.password;
   const isValid = await bcrypt.compare(passwordInputByUser, passwordHash);
   return isValid;
 };
