@@ -4,10 +4,12 @@ const connectionSchema = new mongoose.Schema(
   {
     fromUserId: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "User", //Connection to User Schema
       required: true,
     },
     toUserId: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     status: {
@@ -28,6 +30,14 @@ connectionSchema.pre("save", function (next) {
   }
   next();
 });
+
+/**
+ * Creates a compound index on the connection collection
+ * @description Defines an ascending index on fromUserId and toUserId fields
+ * to optimize queries that search by these user reference fields
+ * @index {fromUserId: 1, toUserId: 1} - Compound index where 1 indicates ascending order
+ */
+connectionSchema.index({ fromUserId: 1, toUserId: 1 });
 
 const Connection = mongoose.model("Connection", connectionSchema);
 
