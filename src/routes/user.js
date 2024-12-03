@@ -2,7 +2,7 @@ const express = require("express");
 const Connection = require("../models/connection");
 const userRouter = express.Router();
 const { userAuth } = require("../middlewares/auth");
-const { connection } = require("mongoose");
+const User = require("../models/user");
 
 userRouter.get("/user/requests/pending", userAuth, async (req, res) => {
   try {
@@ -60,4 +60,49 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
     res.status(400).send("Error fetching connections: " + error.message);
   }
 });
+
+userRouter.get("/user/feed", userAuth, async (req, res) => {
+  try {
+    const loggedInUser = req.user;
+
+    const usersToShow = await Connection.find({
+      $or: [
+        { fromUserId: loggedInUser._id },
+        {
+          $and: [
+            { toUserId: loggedInUser._id },
+            {
+              $or: [
+                { status: "ignored" },
+                { status: "accepted" },
+                { status: "rejected" },
+              ],
+            },
+          ],
+        },
+      ],
+    })
+      .select("fromUserId toUserId status")
+      .populate("fromUserId", "firstName")
+      .populate("toUserId", "firstName");
+
+    const excludeIds = new Set();
+
+    usersToShow.forEach((user) => {
+      excludeIds.add(user.fromUserId._id.toString());
+      excludeIds.add(user.toUserId._id.toString());
+    });
+
+    excludeIds.add(loggedInUser._id.toString());
+
+    const users = await User.find({
+      _id: { $nin: Array.from(excludeIds) },
+    }).select("firstName lastName age gender about skills photoUrl");
+
+    res.send(users);
+  } catch (err) {
+    res.status(400).send("Error fetching user feed: " + err.message);
+  }
+});
+
 module.exports = userRouter;

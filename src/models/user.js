@@ -9,7 +9,7 @@ const userModel = new mongoose.Schema(
     firstName: {
       type: String,
       required: true,
-      minLength: 4,
+      minLength: 1,
       maxLength: 50,
     },
     lastName: {
