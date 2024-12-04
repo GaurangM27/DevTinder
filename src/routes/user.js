@@ -63,6 +63,11 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
 
 userRouter.get("/user/feed", userAuth, async (req, res) => {
   try {
+    let limit = parseInt(req.query.limit) || 10;
+    const skip = parseInt(req.query.skip) || 1;
+    limit = limit > 50 ? 50 : limit;
+    const calSkip = (skip - 1) * limit;
+
     const loggedInUser = req.user;
 
     const usersToShow = await Connection.find({
@@ -97,7 +102,10 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
 
     const users = await User.find({
       _id: { $nin: Array.from(excludeIds) },
-    }).select("firstName lastName age gender about skills photoUrl");
+    })
+      .select("firstName lastName age gender about skills photoUrl")
+      .skip(calSkip)
+      .limit(limit);
 
     res.send(users);
   } catch (err) {
