@@ -12,7 +12,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "https://devtinder-frontend-d1wg.onrender.com",
+    origin: "/api",
     credentials: true,
   })
 );
