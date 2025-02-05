@@ -71,21 +71,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
     const loggedInUser = req.user;
 
     const usersToShow = await Connection.find({
-      $or: [
-        { fromUserId: loggedInUser._id },
-        {
-          $and: [
-            { toUserId: loggedInUser._id },
-            {
-              $or: [
-                { status: "ignored" },
-                { status: "accepted" },
-                { status: "rejected" },
-              ],
-            },
-          ],
-        },
-      ],
+      $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
     })
       .select("fromUserId toUserId status")
       .populate("fromUserId", "firstName")
@@ -106,6 +92,8 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       .select("firstName lastName age gender about skills photoUrl")
       .skip(calSkip)
       .limit(limit);
+
+    console.log(users);
 
     res.send(users);
   } catch (err) {

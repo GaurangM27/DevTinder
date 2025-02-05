@@ -10,9 +10,11 @@ const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 const cors = require("cors");
 
+require("dotenv").config();
+
 app.use(
   cors({
-    origin: "/api",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );

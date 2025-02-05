@@ -4,6 +4,7 @@ const { userAuth } = require("../middlewares/auth");
 const Connection = require("../models/connection");
 const User = require("../models/user");
 const app = express();
+const email = require("../utils/sendMail");
 
 requestsRouter.post(
   "/request/send/:status/:toUserId",
@@ -37,6 +38,10 @@ requestsRouter.post(
 
       const newConnection = new Connection({ fromUserId, toUserId, status });
       await newConnection.save();
+
+      const emailRes = await email.run();
+      console.log(emailRes); // for testing purpose, remove it in production
+
       res.json({
         message: "Profile is marked as " + status,
         data: newConnection,
