@@ -9,6 +9,7 @@ const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 const cors = require("cors");
+const scheduleTask = require("./utils/cronJob");
 
 require("dotenv").config();
 
@@ -20,6 +21,8 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+scheduleTask();
 
 app.use("/", authRouter);
 app.use("/", profileRouter);

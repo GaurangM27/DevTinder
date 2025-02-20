@@ -14,7 +14,7 @@ const createSendEmailCommand = (toAddress, fromAddress) => {
         /* required */
         Html: {
           Charset: "UTF-8",
-          Data: "<h1>Hello World</h1>",
+          Data: "<h1>Testing of sending production mail</h1>",
         },
         Text: {
           Charset: "UTF-8",
@@ -33,9 +33,9 @@ const createSendEmailCommand = (toAddress, fromAddress) => {
   });
 };
 
-const run = async () => {
+const run = async (receiverAddress) => {
   const sendEmailCommand = createSendEmailCommand(
-    "gaurangmishra2712@gmail.com",
+    receiverAddress,
     "admin@devtinder.life"
   );
 
