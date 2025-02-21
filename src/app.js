@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -10,8 +12,6 @@ const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 const cors = require("cors");
 const scheduleTask = require("./utils/cronJob");
-
-require("dotenv").config();
 
 app.use(
   cors({

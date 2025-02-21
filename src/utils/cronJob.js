@@ -4,7 +4,7 @@ const email = require("./sendMail");
 require("dotenv").config();
 
 const scheduleTask = () => {
-  cron.schedule("00 14 * * *", async () => {
+  cron.schedule("* 8 * * *", async () => {
     const yesterdayStartTime = new Date();
     try {
       const reciepentList = await Connection.find({
@@ -21,7 +21,6 @@ const scheduleTask = () => {
       const testEmail = "gaurangm2712@gmail.com";
 
       uniqueReciepentEmail.forEach(async (emailid) => {
-        console.log(process.env.AWS_ACCESS_KEY);
         // Send email notification code here
         await email.run(testEmail);
         console.log(
