@@ -9,8 +9,11 @@ const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 const cors = require("cors");
+const cronJobs = require("./utils/cronJob");
 
 require("dotenv").config();
+
+cronJobs();
 
 app.use(
   cors({
