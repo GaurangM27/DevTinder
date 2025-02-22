@@ -1,14 +1,20 @@
 const cron = require("node-cron");
 const Connection = require("../models/connection");
 const email = require("./sendMail");
-require("dotenv").config();
+const date = require("date-and-time");
 
 const scheduleTask = () => {
   cron.schedule("* 8 * * *", async () => {
-    const yesterdayStartTime = new Date();
+    const now = new Date();
+    const yesterday = date.addDays(now, -1);
+    const yesterdayStartTime = new Date(yesterday);
+    yesterdayStartTime.setHours(0, 0, 0, 0);
+    const yesterdayEndTime = new Date(now);
+    yesterdayEndTime.setHours(0, 0, 0, 0);
     try {
       const reciepentList = await Connection.find({
         status: "interested",
+        createdAt: { $gte: yesterdayStartTime, $lt: yesterdayEndTime },
       })
         .populate("toUserId", "emailId")
         .select("toUserId");
