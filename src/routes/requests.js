@@ -39,7 +39,9 @@ requestsRouter.post(
       const newConnection = new Connection({ fromUserId, toUserId, status });
       await newConnection.save();
 
-      const emailRes = await email.run();
+      const testEmailid = "gaurangm2712@gmail.com";
+
+      const emailRes = await email.run(testEmailid);
       console.log(emailRes); // for testing purpose, remove it in production
 
       res.json({

@@ -1,16 +1,15 @@
 const cron = require("node-cron");
 const Connection = require("../models/connection");
 const email = require("./sendMail");
-const date = require("date-and-time");
+const { subDays, startOfDay, endOfDay } = require("date-fns");
 
 const scheduleTask = () => {
   cron.schedule("* 8 * * *", async () => {
     const now = new Date();
-    const yesterday = date.addDays(now, -1);
-    const yesterdayStartTime = new Date(yesterday);
-    yesterdayStartTime.setHours(0, 0, 0, 0);
-    const yesterdayEndTime = new Date(now);
-    yesterdayEndTime.setHours(0, 0, 0, 0);
+    const yesterday = subDays(new Date(), 1);
+    const yesterdayStartTime = startOfDay(yesterday);
+    const yesterdayEndTime = endOfDay(yesterday);
+    console.log(yesterday, yesterdayEndTime, yesterdayStartTime);
     try {
       const reciepentList = await Connection.find({
         status: "interested",
