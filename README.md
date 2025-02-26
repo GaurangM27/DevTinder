@@ -15,18 +15,6 @@ Here's what makes DevTinder unique:
 - **🤝 Collaboration Made Easy:** DevTinder is built for more than just networking. Find collaborators for your side projects, hackathons, or even your next big startup idea!
 - **🔒 Secure Authentication:** Your data is safe with us. We use robust authentication to protect your information.
 
-## Screenshots
-
-![DevTinder Login](./public/login%20page.png) - Your gateway to connecting with developers.
-
-![Developer Profile](./public/profile%20page.png) - Showcase your skills and find your next project match.
-
-![DevTinder Feed](./public/feed%20page.png) - Discover talented developers to collaborate with.
-
-![Connection Requests](./public/request%20page.png) - Manage your network and build valuable connections.
-
-![Your Connections](./public/connection%20page.png) - Your growing network of developers.
-
 ## Technologies Used
 
 **Frontend:**
