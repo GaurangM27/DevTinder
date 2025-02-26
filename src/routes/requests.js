@@ -39,9 +39,11 @@ requestsRouter.post(
       const newConnection = new Connection({ fromUserId, toUserId, status });
       await newConnection.save();
 
-      const testEmailid = "gaurangm2712@gmail.com";
+      const tosendEmail = toUser.emailId;
+      const emailSubject = "New Connection Request";
+      const emailBody = `You have a new connection request from ${user.firstName} ${user.lastName}. Please login to DevTinder to view the request.`;
 
-      const emailRes = await email.run(testEmailid);
+      const emailRes = await email.run(tosendEmail, emailSubject, emailBody);
       console.log(emailRes); // for testing purpose, remove it in production
 
       res.json({

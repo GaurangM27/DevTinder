@@ -23,11 +23,13 @@ const scheduleTask = () => {
       ];
 
       // Send email notification to unique recipients with yesterday's connection data
-      const testEmail = "gaurangm2712@gmail.com";
+      const emailSubject = "Pending Connection Requests";
+      const emailBody =
+        "You have pending connection requests from yesterday. Please login to DevTinder to view the requests.";
 
       uniqueReciepentEmail.forEach(async (emailid) => {
         // Send email notification code here
-        await email.run(testEmail);
+        await email.run(emailid, emailSubject, emailBody);
         console.log(
           `Sending email to ${emailid} with yesterday's connection data`
         );
