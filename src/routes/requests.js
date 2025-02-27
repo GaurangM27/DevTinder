@@ -3,7 +3,6 @@ const requestsRouter = express.Router();
 const { userAuth } = require("../middlewares/auth");
 const Connection = require("../models/connection");
 const User = require("../models/user");
-const app = express();
 const email = require("../utils/sendMail");
 
 requestsRouter.post(

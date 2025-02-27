@@ -1,6 +1,5 @@
 const express = require("express");
 const profileRouter = express.Router();
-const app = express();
 const { userAuth } = require("../middlewares/auth");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
