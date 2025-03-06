@@ -85,10 +85,13 @@ authRouter.post("/forget-password", async (req, res) => {
       expiresIn: "10m",
     });
     console.log(token);
+
+    const resetLink = `http://localhost:5173/reset-password/${token}`;
+
     const emailSubject = "Password Reset Link";
     const emailBody = `<h1>Reset Your Password</h1>
     <p>Click on the following link to reset your password:</p>
-    <a href="http://localhost:5173/reset-password/${token}">http://localhost:5173/reset-password/${token}</a>
+    <a href="${resetLink}">${resetLink}</a>
     <p>The link will expire in 10 minutes.</p>
     <p>If you didn't request a password reset, please ignore this email.</p>`;
 
