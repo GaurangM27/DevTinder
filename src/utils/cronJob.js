@@ -4,7 +4,7 @@ const email = require("./sendMail");
 const { subDays, startOfDay, endOfDay } = require("date-fns");
 
 const scheduleTask = () => {
-  cron.schedule("* 8 * * *", async () => {
+  cron.schedule("0 8 * * *", async () => {
     const now = new Date();
     const yesterday = subDays(new Date(), 1);
     const yesterdayStartTime = startOfDay(yesterday);
