@@ -93,7 +93,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
       .skip(calSkip)
       .limit(limit);
 
-    console.log(users);
+    //console.log(users);
 
     res.send(users);
   } catch (err) {

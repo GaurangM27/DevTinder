@@ -84,7 +84,7 @@ authRouter.post("/forget-password", async (req, res) => {
     const token = await jwt.sign({ _id: user._id }, process.env.PRIVATE_KEY, {
       expiresIn: "10m",
     });
-    console.log(token);
+    //console.log(token);
 
     const resetLink = `http://localhost:5173/reset-password/${token}`;
 
@@ -96,7 +96,7 @@ authRouter.post("/forget-password", async (req, res) => {
     <p>If you didn't request a password reset, please ignore this email.</p>`;
 
     const emailRes = await email.run(emailID, emailSubject, emailBody);
-    console.log(emailRes); // for testing purpose, remove it in production
+    //console.log(emailRes); // for testing purpose, remove it in production
     res.send("Password reset link sent to your email");
   } catch (error) {
     res.status(400).send("Error: " + error.message);
@@ -111,7 +111,7 @@ authRouter.post("/reset-password/:token", async (req, res) => {
     if (!decoded) {
       throw new Error("Token expired or invalid");
     }
-    console.log(decoded);
+    //console.log(decoded);
     const user = await User.findOne({ _id: decoded._id });
     if (!user) {
       throw new Error("User not found");
@@ -120,7 +120,7 @@ authRouter.post("/reset-password/:token", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 10);
     user.password = passwordHash;
     const newUser = await user.save();
-    console.log(newUser);
+    //console.log(newUser);
     res.send("Password reset successfully");
   } catch (error) {
     res.status(400).send("Error: " + error.message);

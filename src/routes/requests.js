@@ -43,7 +43,7 @@ requestsRouter.post(
       const emailBody = `You have a new connection request from ${user.firstName} ${user.lastName}. Please login to DevTinder to view the request.`;
 
       const emailRes = await email.run(tosendEmail, emailSubject, emailBody);
-      console.log(emailRes); // for testing purpose, remove it in production
+      //console.log(emailRes); // for testing purpose, remove it in production
 
       res.json({
         message: "Profile is marked as " + status,
