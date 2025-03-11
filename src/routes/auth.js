@@ -86,7 +86,7 @@ authRouter.post("/forget-password", async (req, res) => {
     });
     //console.log(token);
 
-    const resetLink = `http://localhost:5173/reset-password/${token}`;
+    const resetLink = `https://devtinder.life/reset-password/${token}`;
 
     const emailSubject = "Password Reset Link";
     const emailBody = `<h1>Reset Your Password</h1>
