@@ -32,7 +32,7 @@ app.use("/", userRouter);
 connectDb()
   .then(() => {
     console.log("Database connected successfully");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is running on this port 7777");
     });
   })
