@@ -153,7 +153,6 @@ authRouter.post("/send-otp", async (req, res) => {
     <p>This OTP will expire in 5 minutes.</p>`;
 
     const emailRes = await email.run(toUserEmail, emailSubject, emailBody);
-    console.log(emailRes); // for testing purpose, remove it in production
 
     res.send("OTP sent to your email");
   } catch (error) {
